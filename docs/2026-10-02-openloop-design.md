@@ -12,18 +12,19 @@ kerja mendekati level itu. Yang dibotolkan loop-nya, bukan otaknya.
 3. **Evidence before done.** Klaim selesai wajib ditempeli bukti jalan
    (test/build/output). Tanpa bukti = belum selesai.
 
-## 3. Struktur v1 (6 file, tidak lebih)
+## 3. Struktur v1 (6 file, tidak lebih — revisi hasil validasi docs+lokal)
 ```
 openloop/
-  plugin.yaml                     nama, versi, provides
-  AGENTS.md                       3 aturan inti, <60 baris
+  AGENTS.md                       3 aturan inti, <60 baris (single source)
+  .opencode/plugins/openloop.mjs  injek AGENTS.md + daftar skills/commands
+  .opencode/command/openloop.md   cek status on/off
   skills/plan-gate/SKILL.md       cara mecah task + todo
   skills/verify-before-done/SKILL.md  cara buktiin klaim
-  commands/openloop.md            cek status on/off
   README.md                       install 1 baris + contoh
 ```
-Tanpa JS hook di v1 (YAGNI). Mesin `.mjs` ala ponytail hanya jika AGENTS.md
-terbukti kurang nendang.
+`plugin.yaml` dicoret: bukan format native opencode (hasil baca docs
+opencode.ai/docs/plugins + bedah plugin ponytail yang jalan).
+Tanpa JS berat di v1: `.mjs` hanya injeksi + registrasi, tanpa state.
 
 ## 4. Pembuktian (eval A/B, model gratis)
 - Subjek: model gratis di config opencode (DeepSeek flash, GLM flash,
