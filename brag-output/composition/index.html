@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>openloop ident</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        background: #0a0a0f;
+        color: #f5f5f5;
+        font-family: monospace;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #0a0a0f;
+      }
+      .clip {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+      }
+      .term {
+        font-size: 120px;
+        letter-spacing: 0.04em;
+        color: #f5f5f5;
+      }
+      .cursor {
+        display: inline-block;
+        width: 0.55em;
+        height: 1em;
+        background: #4ade80;
+        vertical-align: -0.12em;
+        margin-left: 0.08em;
+      }
+      .rules {
+        font-size: 64px;
+        line-height: 1.7;
+        color: #f5f5f5;
+      }
+      .rules .n {
+        color: #4ade80;
+      }
+      .lockup {
+        text-align: center;
+      }
+      .lockup .logo {
+        font-size: 200px;
+        letter-spacing: 0.03em;
+        color: #f5f5f5;
+        margin: 0;
+      }
+      .lockup .logo .accent {
+        color: #4ade80;
+      }
+      .lockup .url {
+        font-size: 44px;
+        color: #8a8a95;
+        margin: 24px 0 0 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="openloop-ident"
+      data-start="0"
+      data-width="1920"
+      data-height="1080"
+      data-duration="5"
+    >
+      <section id="scene-type" class="clip" data-start="0" data-duration="1.5">
+        <div class="term" id="typeline"><span id="t0">o</span><span id="t1">p</span><span id="t2">e</span><span id="t3">n</span><span id="t4">l</span><span id="t5">o</span><span id="t6">o</span><span id="t7">p</span><span class="cursor" id="cursor"></span></div>
+      </section>
+      <section id="scene-rules" class="clip" data-start="1.5" data-duration="2">
+        <div class="rules">
+          <div id="r1"><span class="n">1</span> plan gate</div>
+          <div id="r2"><span class="n">2</span> skill-first</div>
+          <div id="r3"><span class="n">3</span> evidence</div>
+        </div>
+      </section>
+      <section id="scene-lockup" class="clip" data-start="3.5" data-duration="1.5">
+        <div class="lockup">
+          <p class="logo" id="logo">open<span class="accent">loop</span></p>
+          <p class="url" id="url">github.com/bilhokista/openloop</p>
+        </div>
+      </section>
+      <audio id="sfx-type" data-start="0.1" src="assets/tick.wav"></audio>
+      <audio id="sfx-rule-1" data-start="1.6" src="assets/rule.ogg"></audio>
+      <audio id="sfx-rule-2" data-start="2.0" src="assets/rule.ogg"></audio>
+      <audio id="sfx-rule-3" data-start="2.4" src="assets/rule.ogg"></audio>
+      <audio id="sfx-hit" data-start="3.5" src="assets/hit.ogg"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      // Scene 1: type openloop char by char, then hold.
+      tl.fromTo(
+        "#typeline span[id^='t']",
+        { opacity: 0 },
+        { opacity: 1, duration: 0.05, stagger: 0.11 },
+        0.1
+      );
+      tl.fromTo(
+        "#cursor",
+        { opacity: 1 },
+        { opacity: 0, duration: 0.22, repeat: 3, yoyo: true },
+        0.1
+      );
+      // Scene 2: three rules snap in one by one.
+      tl.fromTo("#r1", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 1.6);
+      tl.fromTo("#r2", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 2.0);
+      tl.fromTo("#r3", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 2.4);
+      // Scene 3: logo lockup.
+      tl.fromTo("#logo", { scale: 0.92, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "power3.out" }, 3.5);
+      tl.fromTo("#url", { opacity: 0 }, { opacity: 1, duration: 0.35 }, 3.7);
+      window.__timelines["openloop-ident"] = tl;
+    </script>
+  </body>
+</html>
